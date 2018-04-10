@@ -18,11 +18,10 @@ dumps out all the frames as 32bit integers.
     SAMPLES = pathlib.Path("my-audio-sample-dir")
 
     with sndfile.open(SAMPLES / "my-sample.flac", "r") as sample:
-        print(sample)
-        print("frames:", sample.frames)
-        print("format:", sample.format)
-        print("samplerate:", sample.samplerate)
-        print("channels:", sample.channels)
-        print("sections:", sample.sections)
+        print("frames: {}".format(sample.frames))
+        print("format: major={0[0]}, minor={0[1]}".format(sample.format))
+        print("samplerate: {}".format(sample.samplerate))
+        print("channels: {}".format(sample.channels))
+        print("sections: {}".format(sample.sections))
 
         print(sample.read_frames("l"))
