@@ -80,6 +80,10 @@ class SndFileWrapper:
     def sections(self):
         return self._info.sections
 
+    @property
+    def format(self):
+        return self._info.format & lib.SF_FORMAT_TYPEMASK
+
 
 def open(filename, mode):
     return SndFileWrapper(filename, mode)
