@@ -2,6 +2,7 @@ import os
 from array import array
 
 from ._sndfile import lib, ffi
+from .formats import major_format_str, minor_format_str
 
 
 class SndFileWrapper:
@@ -65,10 +66,6 @@ class SndFileWrapper:
         return self._info.frames
 
     @property
-    def format(self):
-        return self._info.format
-
-    @property
     def samplerate(self):
         return self._info.samplerate
 
@@ -82,7 +79,8 @@ class SndFileWrapper:
 
     @property
     def format(self):
-        return self._info.format & lib.SF_FORMAT_TYPEMASK
+        return (major_format_str(self._info.format),
+                minor_format_str(self._info.format))
 
 
 def open(filename, mode):
