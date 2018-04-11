@@ -83,5 +83,5 @@ class SndFileWrapper:
                 minor_format_str(self._info.format))
 
 
-def open(filename, mode):
+def open(filename, mode="r"):
     return SndFileWrapper(filename, mode)
