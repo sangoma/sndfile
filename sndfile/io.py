@@ -10,10 +10,14 @@ class SndFileWrapper:
         self.name = name
         self.mode = mode
 
-        if mode == "r":
-            sndfile_mode = lib.SFM_READ
-        else:
-            raise ValueError("Don't understand: {}".format(mode))
+        sndfile_mode = 0
+        for m in mode:
+            if m == "r":
+                sndfile_mode |= lib.SFM_READ
+            elif m == "w":
+                sndfile_mode |= lib.SFM_WRITE
+            else:
+                raise ValueError("Don't understand: {}".format(mode))
 
         self._info = ffi.new("SF_INFO *")
         self.handle = lib.sf_open(os.fsencode(self.name), sndfile_mode,
