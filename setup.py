@@ -14,7 +14,7 @@ setup(
     version='0.1',
     description='A CFFI wrapper around libsndfile',
     author='Simon Gomizelj',
-    author_email='simon@vodik,xyz',
+    author_email='simon@vodik.xyz',
     url='https://github.com/sangoma/sndfile',
     packages=find_packages(),
     setup_requires=[
