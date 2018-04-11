@@ -1,18 +1,17 @@
-import os
+import pathlib
+
 import cffi
 
 
-here = os.path.dirname(__file__)
 ffi = cffi.FFI()
-
-
 ffi.set_source('sndfile._sndfile', '''
 #include <stdint.h>
 #include <sndfile.h>
 ''', libraries=['sndfile'])
 
 
-with open(os.path.join(here, 'sndfile.h')) as header:
+here = pathlib.Path(__file__).absolute().parent
+with open(here / 'sndfile.h') as header:
     ffi.cdef(header.read())
 
 
