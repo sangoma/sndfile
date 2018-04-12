@@ -11,7 +11,7 @@ def read(fname):
 
 setup(
     name='sndfile',
-    version='0.1',
+    version='0.1.1',
     description='A CFFI wrapper around libsndfile',
     author='Simon Gomizelj',
     author_email='simon@vodik.xyz',
