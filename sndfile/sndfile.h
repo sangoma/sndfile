@@ -80,6 +80,8 @@ typedef struct {
 SNDFILE *sf_open(const char *path, int mode, SF_INFO *sfinfo);
 int sf_close(SNDFILE *sndfile);
 
+const char *sf_strerror(SNDFILE *sndfile) ;
+
 sf_count_t sf_readf_short(SNDFILE *sndfile, short *ptr, sf_count_t frames);
 sf_count_t sf_readf_int(SNDFILE *sndfile, int *ptr, sf_count_t frames);
 sf_count_t sf_readf_float(SNDFILE *sndfile, float *ptr, sf_count_t frames);

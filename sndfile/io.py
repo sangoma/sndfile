@@ -23,6 +23,12 @@ class SndFileWrapper:
         self.handle = lib.sf_open(os.fsencode(self.name), sndfile_mode,
                                   self._info)
 
+        if not self.handle:
+            errmsg = ffi.string(lib.sf_strerror(self.handle))
+            raise IOError("Failed to open {}: {}".format(
+                name, errmsg.decode()
+            ))
+
     def close(self):
         if self.handle:
             lib.sf_close(self.handle)
