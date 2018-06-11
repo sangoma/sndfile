@@ -11,7 +11,7 @@ ffi.set_source('sndfile._sndfile', '''
 
 
 here = pathlib.Path(__file__).absolute().parent
-with open(here / 'sndfile.h') as header:
+with here.joinpath('sndfile.h').open() as header:
     ffi.cdef(header.read())
 
 
