@@ -64,16 +64,31 @@ enum {
 
 typedef int... sf_count_t;
 
+typedef sf_count_t (*sf_vio_get_filelen)(void *user_data);
+typedef sf_count_t (*sf_vio_seek)(sf_count_t offset, int whence, void *user_data);
+typedef sf_count_t (*sf_vio_read)(void *ptr, sf_count_t count, void *user_data);
+typedef sf_count_t (*sf_vio_write)(const void *ptr, sf_count_t count, void *user_data);
+typedef sf_count_t (*sf_vio_tell)(void *user_data);
+
 typedef struct {
-  sf_count_t frames;
-  int samplerate;
-  int channels;
-  int format;
-  int sections;
-  int seekable;
+    sf_count_t frames;
+    int samplerate;
+    int channels;
+    int format;
+    int sections;
+    int seekable;
 } SF_INFO;
 
+typedef struct {
+    sf_vio_get_filelen get_filelen;
+    sf_vio_seek seek;
+    sf_vio_read read;
+    sf_vio_write write;
+    sf_vio_tell tell;
+} SF_VIRTUAL_IO;
+
 SNDFILE *sf_open(const char *path, int mode, SF_INFO *sfinfo);
+SNDFILE *sf_open_virtual(SF_VIRTUAL_IO *sfvirtual, int mode, SF_INFO *sfinfo, void *user_data);
 int sf_close(SNDFILE *sndfile);
 
 const char *sf_strerror(SNDFILE *sndfile) ;
@@ -82,3 +97,9 @@ sf_count_t sf_readf_short(SNDFILE *sndfile, short *ptr, sf_count_t frames);
 sf_count_t sf_readf_int(SNDFILE *sndfile, int *ptr, sf_count_t frames);
 sf_count_t sf_readf_float(SNDFILE *sndfile, float *ptr, sf_count_t frames);
 sf_count_t sf_readf_double(SNDFILE *sndfile, double *ptr, sf_count_t frames);
+
+extern "Python" sf_count_t vio_get_filelen(void *);
+extern "Python" sf_count_t vio_seek(sf_count_t, int, void *);
+extern "Python" sf_count_t vio_read(void *, sf_count_t, void *);
+extern "Python" sf_count_t vio_write(const void *, sf_count_t, void *);
+extern "Python" sf_count_t vio_tell(void *);

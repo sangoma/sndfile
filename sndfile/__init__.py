@@ -1,1 +1,1 @@
-from .io import open  # noqa
+from .io import open, frombytes
