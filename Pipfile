@@ -8,3 +8,4 @@ name = "pypi"
 
 [packages]
 cffi = ">= 1.11.5"
+sndfile = {editable = true, path = "."}
